@@ -103,7 +103,7 @@ const SignUp = () => {
             get Started
           </button>
         </Link>
-        <div className="justify-items-end">
+        <div className="absolute bottom-0">
           <span>@carepulse copyright</span>
         </div>
       </div>
