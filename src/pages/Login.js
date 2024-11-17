@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "../../node_modules/react-router-dom/dist/index";
-import signUpImg from "../assets/png/signup.png";
+import logInImg from "../assets/png/login-img.png";
 import { Link } from "../../node_modules/react-router-dom/dist/index";
 
 const Login = ({ userInfo }) => {
@@ -20,9 +20,10 @@ const Login = ({ userInfo }) => {
   const filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
 
   function handleSignUp() {
-    if (!filter.test(email)) {
-      setEmailIncluded(true);
-    } else setEmailIncluded(false);
+    for (let i = 0; i < userInfo.length; i++) {
+      if (userInfo[i].email === email) navigate("/dashboard");
+      else setEmailIncluded(true);
+    }
 
     if (number.length < 10 || number.length > 15) {
       setNumIncluded(true);
@@ -35,6 +36,7 @@ const Login = ({ userInfo }) => {
   function handleVerifyOTP() {
     for (let i = 0; i < userInfo.length; i++) {
       if (userInfo[i].email === email && otp.length > 5) navigate("/dashboard");
+      else setEmailIncluded(true);
     }
   }
 
@@ -161,7 +163,7 @@ const Login = ({ userInfo }) => {
 
         <div className="hidden md:block w-1/2 text-black absolute top-0 right-0 h-full">
           <img
-            src={signUpImg}
+            src={logInImg}
             alt="Happy Doctors in ward coats and stethoscopes"
             className="w-full rounded-2xl h-full"
           />
