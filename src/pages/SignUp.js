@@ -60,7 +60,7 @@ const SignUp = ({ userInfo }) => {
             <span className="text-[#abb8c4] text-lg font-medium leading-7 tracking-tight mb-16">
               Get Started with Appointments.
             </span>
-            <form className="flex flex-col gap-6">
+            <form autoComplete="on" className="flex flex-col gap-6">
               <label
                 className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
                 id="name">
@@ -251,10 +251,10 @@ const SignUp = ({ userInfo }) => {
               Please enter the OTP sent to your registered mobile number.
             </span>
             <div className="flex md:gap-[18px] my-10">
-              {arr.map((each) => (
+              {arr.map((each, i) => (
                 <input
                   type="tel"
-                  id="number"
+                  id={`number${i}`}
                   placeholder="0"
                   maxLength={1}
                   onChange={(e) => {

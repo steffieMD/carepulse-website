@@ -49,7 +49,7 @@ const Login = ({ userInfo }) => {
             <span className="text-[#abb8c4] text-lg font-medium leading-7 tracking-tight mb-16">
               Get Started with Appointments.
             </span>
-            <form className="flex flex-col gap-6">
+            <form className="flex flex-col gap-6" autoComplete="on">
               <label
                 className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
                 id="email">
@@ -200,10 +200,10 @@ const Login = ({ userInfo }) => {
               To access the admin page, please enter the passkey.....
             </span>
             <div className="flex md:gap-[18px] my-10">
-              {arr.map((each) => (
+              {arr.map((each, i) => (
                 <input
                   type="tel"
-                  id="number"
+                  id={`number${i}`}
                   placeholder="0"
                   maxLength={1}
                   onChange={(e) => {
