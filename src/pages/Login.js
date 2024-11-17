@@ -33,8 +33,8 @@ const Login = ({ userInfo }) => {
   }
 
   function handleVerifyOTP() {
-    if (otp.length > 5) {
-      navigate("/dashboard");
+    for (let i = 0; i < userInfo.length; i++) {
+      if (userInfo[i].email === email && otp.length > 5) navigate("/dashboard");
     }
   }
 
@@ -217,7 +217,7 @@ const Login = ({ userInfo }) => {
               onClick={(e) => {
                 handleVerifyOTP();
 
-                console.log(userInfo);
+                // console.log(userInfo);
               }}
               className="bg-[#24AE7C] py-3 text-white hover:bg-[#0E8784] w-full rounded-lg justify-center items-center text-base font-semibold leading-normal tracking-tight capitalize">
               Enter admin panel
