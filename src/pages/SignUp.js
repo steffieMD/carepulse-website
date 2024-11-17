@@ -3,20 +3,43 @@ import { useState } from "react";
 import signUpImg from "../assets/png/signup.png";
 import { Link } from "../../node_modules/react-router-dom/dist/index";
 
-//
-
 const SignUp = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
+  const [nameIncluded, setNameIncluded] = useState(false);
+  const [emailIncluded, setEmailIncluded] = useState(false);
+  const [numIncluded, setNumIncluded] = useState(false);
+  const [patientInfo, setPatientInfo] = useState([]);
+
+  const filter =
+    /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+  function handleSignUp() {
+    if (name.length < 1) {
+      setNameIncluded(true);
+    } else setNameIncluded(false);
+
+    if (!filter.test(email)) {
+      setEmailIncluded(true);
+    } else setEmailIncluded(false);
+
+    if (number.length < 10) {
+      setNumIncluded(true);
+    } else setNumIncluded(false);
+  }
+
   return (
-    <div className="flex h-[100vh] px-10 md:pl-20 lg:pl-[110px] text-white text-left w-full">
-      <div className="h-full flex flex-col justify-around w-full">
-        <div className="flex flex-col justify-center">
+    <div className="flex text-white text-left w-full flex-1">
+      <div className="h-full flex flex-col justify-around w-full md:w-1/2 px-10 md:pr-0  md:pl-20 lg:pl-[110px] mt-[149px]">
+        <div className="flex flex-col justify-center flex-1 md:pr-[20px] lg:pr-[110px] ">
           <h1 className="mb-[18px] text-4xl font-bold leading-[44px]">
             Hi there, ....
           </h1>
           <span className="text-[#abb8c4] text-lg font-medium leading-7 tracking-tight mb-16">
             Get Started with Appointments.
           </span>
-          <form action="/" className="flex flex-col gap-6">
+          <form className="flex flex-col gap-6">
             <label
               className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
               id="name">
@@ -39,16 +62,25 @@ const SignUp = () => {
                       />
                     </svg>
                   </div>
-
                   <input
                     type="text"
                     id="name"
+                    value={name}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
                     placeholder="Full Name"
                     className="bg-transparent text-white font-normal text-base w-full"
                   />
                 </div>
               </div>
             </label>
+            <span
+              className={`text-[#f14e42] text-right ${
+                !nameIncluded ? "hidden" : "block"
+              }`}>
+              Please enter your name.
+            </span>
             <label
               className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
               id="email">
@@ -73,12 +105,21 @@ const SignUp = () => {
                   <input
                     type="email"
                     id="email"
+                    pattern=".+@example\.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="youremail@email.com"
                     className="bg-transparent text-white font-normal text-base w-full"
                   />
                 </div>
               </div>
             </label>
+            <span
+              className={`text-[#f14e42] text-right ${
+                !emailIncluded ? "hidden" : "block"
+              }`}>
+              Please enter your correct email.
+            </span>
             <label
               className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
               id="number">
@@ -107,28 +148,50 @@ const SignUp = () => {
                   <input
                     type="number"
                     id="number"
+                    value={number}
+                    onChange={(e) => setNumber(e.target.value)}
                     placeholder="+234 1234567890"
                     className="bg-transparent text-white font-normal text-base w-full"
                   />
                 </div>
               </div>
             </label>
+            <span
+              className={`text-[#f14e42] text-right ${
+                !numIncluded ? "hidden" : "block"
+              }`}>
+              Please enter your correct phone number.
+            </span>
+            <input
+              onClick={(e) => {
+                e.preventDefault();
+                handleSignUp();
+              }}
+              type="submit"
+              value="get started"
+              className="bg-[#24AE7C] py-3 text-white hover:bg-[#0E8784] w-full mt-12 rounded-lg justify-center items-center text-base font-semibold leading-normal tracking-tight capitalize"
+            />
           </form>
-          <Link to="/" className="w-full">
-            <button className="bg-[#24AE7C] py-3 text-white hover:bg-[#0E8784] w-full mt-12 rounded-lg justify-center items-center text-base font-semibold leading-normal tracking-tight capitalize">
-              get Started
-            </button>
-          </Link>
+
+          <p className="text-white mt-4 text-base font-semibold leading-normal tracking-tight text-center">
+            Have an account?{" "}
+            <Link
+              to="/login"
+              className="underline text-[#24AE7C]    hover:text-[#0E8784] capitalize">
+              sign in
+            </Link>
+          </p>
         </div>
-        <div className="">
+        <div className="mt-[163px]">
           <span>@carepulse copyright</span>
         </div>
       </div>
 
-      <div className="hidden md:block h-full text-black">
+      <div className="hidden md:block w-1/2 text-black absolute top-0 right-0 h-full">
         <img
           src={signUpImg}
           alt="Happy Doctors in ward coats and stethoscopes"
+          className="w-full rounded-2xl h-full"
         />
       </div>
     </div>
