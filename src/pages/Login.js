@@ -33,7 +33,7 @@ const Login = ({ userInfo }) => {
   }
 
   function handleVerifyOTP() {
-    if (otp.length > 5 && name) {
+    if (otp.length > 5) {
       navigate("/dashboard");
     }
   }
