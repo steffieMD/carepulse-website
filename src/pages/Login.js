@@ -20,10 +20,9 @@ const Login = ({ userInfo }) => {
   const filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
 
   function handleSignUp() {
-    for (let i = 0; i < userInfo.length; i++) {
-      if (userInfo[i].email === email) navigate("/dashboard");
-      else setEmailIncluded(true);
-    }
+    if (!filter.test(email)) {
+      setEmailIncluded(true);
+    } else setEmailIncluded(false);
 
     if (number.length < 10 || number.length > 15) {
       setNumIncluded(true);
