@@ -204,6 +204,7 @@ const Login = ({ userInfo }) => {
                 <input
                   type="tel"
                   id={`number${i}`}
+                  key={i}
                   placeholder="0"
                   maxLength={1}
                   onChange={(e) => {
