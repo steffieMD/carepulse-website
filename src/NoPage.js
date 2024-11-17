@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Link } from "react-router-dom";
 const NoPage = () => {
   return (
@@ -22,7 +23,7 @@ const NoPage = () => {
         uh oh! Nothing here....
       </p>
       <Link to="/">
-        <button className="bg-[#0E8784] px-[31px] pt-[15px] pb-[16px] rounded-md  text-lg font-[900] text-customeggwhite hover:bg-hovergreen">
+        <button className="bg-[#24AE7C] px-[31px] pt-[15px] pb-[16px] rounded-md  text-lg font-[900] text-white hover:bg-[#0E8784]">
           GO BACK HOME
         </button>
       </Link>
