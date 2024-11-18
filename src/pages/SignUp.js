@@ -13,7 +13,7 @@ const SignUp = ({ userInfo }) => {
   const [emailIncluded, setEmailIncluded] = useState(false);
   const [numIncluded, setNumIncluded] = useState(false);
   const [modalStyle, setModalStyle] = useState("hidden");
-  const [otpNum, setOtpNum] = useState(0);
+  const [alreadyExist, setAlreadyExist] = useState(false);
   const [otp, setOtp] = useState([]);
   const navigate = useNavigate();
 
@@ -195,6 +195,12 @@ const SignUp = ({ userInfo }) => {
                 className="bg-[#24AE7C] py-3 text-white hover:bg-[#0E8784] w-full mt-12 rounded-lg justify-center items-center text-base font-semibold leading-normal tracking-tight capitalize"
               />
             </form>
+            <span
+              className={`text-[#f14e42] text-right ${
+                !alreadyExist ? "hidden" : "block"
+              }`}>
+              Email address already exists!
+            </span>
 
             <p className="text-white mt-4 text-base font-semibold leading-normal tracking-tight text-center">
               Have an account?{" "}
@@ -219,10 +225,10 @@ const SignUp = ({ userInfo }) => {
         </div>
       </div>
       <div className={` ${modalStyle}`}>
-        <div className="px-10 pt-10 pb-[50px] bg-[#060708]/60  justify-center items-center gap-10 inline-flex absolute top-0 left-0 w-full h-full">
-          <div className="md:w-[44.4%] bg-[#1a1d21]/95 shadow-inner border-t border-white/10 flex-col rounded-3xl  px-10 pt-10 pb-[50px]">
+        <div className="px-5 pt-10 pb-[50px] bg-[#060708]/60  justify-center items-center gap-10 inline-flex absolute top-0 left-0 w-full h-full">
+          <div className="md:w-[44.4%] bg-[#1a1d21]/95 shadow-inner border-t border-white/10 flex-col rounded-3xl px-5 lg:px-10 pt-10 pb-[50px]">
             <div className="flex justify-between mb-4">
-              <span className="text-white text-2xl font-semibold leading-loose">
+              <span className="text-white text-2xl font-semibold leading-loose text-nowrap">
                 Verify OTP
               </span>
               <div
@@ -250,7 +256,7 @@ const SignUp = ({ userInfo }) => {
             <span className="text-[#abb8c4] text-base font-medium leading-normal tracking-tight ">
               Please enter the OTP sent to your registered mobile number.
             </span>
-            <div className="flex md:gap-[18px] my-10">
+            <div className="flex gap-2 md:gap-[18px] my-10">
               {arr.map((each, i) => (
                 <input
                   type="tel"
@@ -268,12 +274,12 @@ const SignUp = ({ userInfo }) => {
             <button
               onClick={(e) => {
                 handleVerifyOTP();
+
                 userInfo.push({
                   name: name,
                   email: email,
-                  "phone number": number,
+                  number: number,
                 });
-                console.log(userInfo);
               }}
               className="bg-[#24AE7C] py-3 text-white hover:bg-[#0E8784] w-full rounded-lg justify-center items-center text-base font-semibold leading-normal tracking-tight capitalize">
               Verify

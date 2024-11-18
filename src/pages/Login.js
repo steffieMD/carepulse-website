@@ -11,7 +11,7 @@ const Login = ({ userInfo }) => {
   const [emailIncluded, setEmailIncluded] = useState(false);
   const [numIncluded, setNumIncluded] = useState(false);
   const [modalStyle, setModalStyle] = useState("hidden");
-  const [otpNum, setOtpNum] = useState(0);
+
   const [otp, setOtp] = useState([]);
   const navigate = useNavigate();
 
@@ -19,17 +19,40 @@ const Login = ({ userInfo }) => {
 
   const filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
 
-  function handleSignUp() {
-    if (!filter.test(email)) {
+  function handleLogIn() {
+    if (userInfo.length < 1) {
       setEmailIncluded(true);
-    } else setEmailIncluded(false);
-
-    if (number.length < 10 || number.length > 15) {
       setNumIncluded(true);
-    } else setNumIncluded(false);
+    } else {
+      if (!filter.test(email) || number.length < 10 || number.length > 15) {
+        if (!filter.test(email)) {
+          setEmailIncluded(true);
+        } else setEmailIncluded(false);
 
-    if (filter.test(email) && number.length > 10 && number.length < 16)
-      setModalStyle("block");
+        if (number.length < 10 || number.length > 15) {
+          setNumIncluded(true);
+        } else setNumIncluded(false);
+      } else {
+        for (let i = 0; i < userInfo.length; i++) {
+          if (userInfo[i].email === email && userInfo[i].number === number) {
+            setModalStyle("block");
+            setEmailIncluded(false);
+            setNumIncluded(false);
+          } else if (userInfo[i].email !== email) {
+            setEmailIncluded(true);
+          } else if (userInfo[i].number !== number) {
+            setNumIncluded(true);
+          } else if (userInfo[i].email === email) {
+            setEmailIncluded(false);
+          } else if (userInfo[i].number === number) {
+            setNumIncluded(false);
+          } else {
+            setEmailIncluded(true);
+            setNumIncluded(true);
+          }
+        }
+      }
+    }
   }
 
   function handleVerifyOTP() {
@@ -42,7 +65,7 @@ const Login = ({ userInfo }) => {
   return (
     <>
       <div className="flex text-white text-left w-full flex-1">
-        <div className="h-full flex flex-col justify-around w-full md:w-1/2 px-10   md:px-20 lg:px-[110px] mt-[149px]">
+        <div className="h-full flex flex-col justify-around w-full md:w-1/2 px-10 md:px-20 lg:px-[110px] mt-[149px]">
           <div className="flex flex-col justify-center flex-1  ">
             <h1 className="mb-[18px] text-4xl font-bold leading-[44px]">
               Hi there, ....
@@ -137,7 +160,7 @@ const Login = ({ userInfo }) => {
               <input
                 onClick={(e) => {
                   e.preventDefault();
-                  handleSignUp();
+                  handleLogIn();
                   console.log(userInfo);
                 }}
                 type="submit"
@@ -169,8 +192,8 @@ const Login = ({ userInfo }) => {
         </div>
       </div>
       <div className={` ${modalStyle}`}>
-        <div className="px-10 pt-10 pb-[50px] bg-[#060708]/60  justify-center items-center gap-10 inline-flex absolute top-0 left-0 w-full h-full">
-          <div className="md:w-[44.4%] bg-[#1a1d21]/95 shadow-inner border-t border-white/10 flex-col rounded-3xl  px-10 pt-10 pb-[50px]">
+        <div className="px-5 pt-10 pb-[50px] bg-[#060708]/60  justify-center items-center gap-10 inline-flex absolute top-0 left-0 w-full h-full">
+          <div className="md:w-[44.4%] bg-[#1a1d21]/95 shadow-inner border-t border-white/10 flex-col rounded-3xl px-5 pt-10 pb-[50px]">
             <div className="flex justify-between mb-4">
               <span className="text-white text-2xl font-semibold leading-loose">
                 Access Verification
@@ -200,7 +223,7 @@ const Login = ({ userInfo }) => {
             <span className="text-[#abb8c4] text-base font-medium leading-normal tracking-tight ">
               To access the admin page, please enter the passkey.....
             </span>
-            <div className="flex md:gap-[18px] my-10">
+            <div className="flex gap-2 md:gap-[18px] my-10">
               {arr.map((each, i) => (
                 <input
                   type="tel"
@@ -218,8 +241,6 @@ const Login = ({ userInfo }) => {
             <button
               onClick={(e) => {
                 handleVerifyOTP();
-
-                // console.log(userInfo);
               }}
               className="bg-[#24AE7C] py-3 text-white hover:bg-[#0E8784] w-full rounded-lg justify-center items-center text-base font-semibold leading-normal tracking-tight capitalize">
               Enter admin panel
