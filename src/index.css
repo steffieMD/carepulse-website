@@ -2,6 +2,11 @@ body {
   background-color: #131619;
   height: 100vh;
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
