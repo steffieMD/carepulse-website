@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "../../node_modules/react-router-dom/dist/index";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserMd } from "@fortawesome/free-solid-svg-icons";
 
 const PatientForm = ({ userInfo }) => {
   const [email, setEmail] = useState("");
@@ -453,6 +455,27 @@ const PatientForm = ({ userInfo }) => {
             <h2 className=" text-xl md:text-3xl font-bold leading-9 mb-9">
               Medical Information
             </h2>
+            <label
+              className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
+              id="name">
+              Primary care physician
+              <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
+                <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
+                  <div className="bg-transparent text-white font-normal text-base w-full">
+                    <div className="p-3 bg-gradient-to-br from-[#d7ecec] from-[0%] to-[#cceaea] to-[16%] rounded-[5px] border border-white/10 justify-start items-center gap-1.5 inline-flex">
+                      <FontAwesomeIcon icon={faUserMd} />
+                      <span>Select you Primary Care Physician</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </label>
+            <span
+              className={`text-[#f14e42] text-right ${
+                !nameIncluded ? "hidden" : "block"
+              }`}>
+              Please enter your name.
+            </span>
           </section>
 
           <input
