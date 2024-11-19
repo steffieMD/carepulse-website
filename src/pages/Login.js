@@ -4,7 +4,7 @@ import { useNavigate } from "../../node_modules/react-router-dom/dist/index";
 import logInImg from "../assets/png/login-img.png";
 import { Link } from "../../node_modules/react-router-dom/dist/index";
 
-const Login = ({ userInfo }) => {
+const Login = ({ userSignUpInfo }) => {
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
 
@@ -20,7 +20,7 @@ const Login = ({ userInfo }) => {
   const filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
 
   function handleLogIn() {
-    if (userInfo.length < 1) {
+    if (userSignUpInfo.length < 1) {
       setEmailIncluded(true);
       setNumIncluded(true);
     } else {
@@ -33,18 +33,21 @@ const Login = ({ userInfo }) => {
           setNumIncluded(true);
         } else setNumIncluded(false);
       } else {
-        for (let i = 0; i < userInfo.length; i++) {
-          if (userInfo[i].email === email && userInfo[i].number === number) {
+        for (let i = 0; i < userSignUpInfo.length; i++) {
+          if (
+            userSignUpInfo[i].email === email &&
+            userSignUpInfo[i].number === number
+          ) {
             setModalStyle("block");
             setEmailIncluded(false);
             setNumIncluded(false);
-          } else if (userInfo[i].email !== email) {
+          } else if (userSignUpInfo[i].email !== email) {
             setEmailIncluded(true);
-          } else if (userInfo[i].number !== number) {
+          } else if (userSignUpInfo[i].number !== number) {
             setNumIncluded(true);
-          } else if (userInfo[i].email === email) {
+          } else if (userSignUpInfo[i].email === email) {
             setEmailIncluded(false);
-          } else if (userInfo[i].number === number) {
+          } else if (userSignUpInfo[i].number === number) {
             setNumIncluded(false);
           } else {
             setEmailIncluded(true);
@@ -56,8 +59,9 @@ const Login = ({ userInfo }) => {
   }
 
   function handleVerifyOTP() {
-    for (let i = 0; i < userInfo.length; i++) {
-      if (userInfo[i].email === email && otp.length > 5) navigate("/dashboard");
+    for (let i = 0; i < userSignUpInfo.length; i++) {
+      if (userSignUpInfo[i].email === email && otp.length > 5)
+        navigate("/dashboard");
       else setEmailIncluded(true);
     }
   }
@@ -161,7 +165,7 @@ const Login = ({ userInfo }) => {
                 onClick={(e) => {
                   e.preventDefault();
                   handleLogIn();
-                  console.log(userInfo);
+                  console.log(userSignUpInfo);
                 }}
                 type="submit"
                 value="log in"

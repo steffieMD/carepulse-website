@@ -4,7 +4,7 @@ import { useNavigate } from "../../node_modules/react-router-dom/dist/index";
 import signUpImg from "../assets/png/signup.png";
 import { Link } from "../../node_modules/react-router-dom/dist/index";
 
-const SignUp = ({ userInfo }) => {
+const SignUp = ({ userSignUpInfo }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
@@ -274,8 +274,7 @@ const SignUp = ({ userInfo }) => {
             <button
               onClick={(e) => {
                 handleVerifyOTP();
-
-                userInfo.push({
+                userSignUpInfo.push({
                   name: name,
                   email: email,
                   number: number,

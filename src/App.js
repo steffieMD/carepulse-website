@@ -11,17 +11,31 @@ import NoPage from "./NoPage";
 
 function App() {
   const [patientInfo, setPatientInfo] = useState([]);
+  const [signUpInfo, setSignUpInfo] = useState([]);
+  const userSignUpInfo = [...signUpInfo];
   const userInfo = [...patientInfo];
+
+  if (userSignUpInfo.length >= 1) {
+    setSignUpInfo(userSignUpInfo);
+  }
+
   if (userInfo.length >= 1) {
     setPatientInfo(userInfo);
   }
+
   return (
     <BrowserRouter>
       <div className="bg-[#131619] font-plusJakarta">
         <Navbar />
         <Routes>
-          <Route path="/" element={<SignUp userInfo={userInfo} />} />
-          <Route path="/login" element={<Login userInfo={userInfo} />} />
+          <Route
+            path="/"
+            element={<SignUp userSignUpInfo={userSignUpInfo} />}
+          />
+          <Route
+            path="/login"
+            element={<Login userSignUpInfo={userSignUpInfo} />}
+          />
           <Route
             path="/patientform"
             element={<PatientForm userInfo={userInfo} />}
