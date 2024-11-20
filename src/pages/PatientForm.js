@@ -81,7 +81,7 @@ const PatientForm = ({ userInfo }) => {
         </span>
 
         <form className="flex flex-col gap-6" autoComplete="on">
-          <section className="mt-[43px]">
+          <section className="mt-[43px] flex flex-col gap-6">
             <h2 className=" text-xl md:text-3xl font-bold leading-9 mb-9">
               Personal Information
             </h2>
@@ -451,7 +451,7 @@ const PatientForm = ({ userInfo }) => {
             </div>
           </section>
 
-          <section className="mt-[60px]">
+          <section className="mt-[36px] flex flex-col gap-6">
             <h2 className=" text-xl md:text-3xl font-bold leading-9 mb-9">
               Medical Information
             </h2>
@@ -462,9 +462,12 @@ const PatientForm = ({ userInfo }) => {
               <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                 <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
                   <div className="bg-transparent text-white font-normal text-base w-full">
-                    <div className="p-3 bg-gradient-to-br from-[#d7ecec] from-[0%] to-[#cceaea] to-[16%] rounded-[5px] border border-white/10 justify-start items-center gap-1.5 inline-flex">
-                      <FontAwesomeIcon icon={faUserMd} />
-                      <span>Select you Primary Care Physician</span>
+                    <div className="p-3 bg-gradient-to-br from-[#d7ecec] from-[-650%] rounded-lg border border-white/10 justify-start items-center gap-1.5 inline-flex">
+                      <div className="border rounded-full h-8 w-8 flex justify-center items-center">
+                        <FontAwesomeIcon icon={faUserMd} />
+                      </div>
+
+                      <span>Select your Physician</span>
                     </div>
                   </div>
                 </div>
