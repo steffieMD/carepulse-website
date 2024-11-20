@@ -3,6 +3,9 @@ import { useState } from "react";
 import { useNavigate } from "../../node_modules/react-router-dom/dist/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserMd } from "@fortawesome/free-solid-svg-icons";
+import doc1 from "../assets/png/sarah.png";
+import doc2 from "../assets/png/ava.png";
+import doc3 from "../assets/png/adam.png";
 
 const PatientForm = ({ userInfo }) => {
   const [email, setEmail] = useState("");
@@ -24,9 +27,60 @@ const PatientForm = ({ userInfo }) => {
   const [contactNameIncluded, setContactNameIncluded] = useState(false);
   const [contactNumberIncluded, setContactNumberIncluded] = useState(false);
   const [allIncluded, setAllIncluded] = useState(false);
+  const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
+  const doctors = [
+    {
+      name: "Dr. Sarah Safari",
+      img: doc1,
+    },
+    {
+      name: "Dr. Ava Williams",
+      img: doc2,
+    },
+    {
+      name: "Dr. Adam Smith",
+      img: doc3,
+    },
+  ];
+
+  const id = [
+    "Birth Certificate",
+    "Internationa Passport",
+    "Driver's License",
+    "Social Security Card",
+    "Permanent Resident Card",
+  ];
+  const [physician, setPhysician] = useState("");
+  const [physicianImg, setPhysicianImg] = useState(doctors[0].img);
+  const [physicianIncluded, setPhysicianIncluded] = useState(false);
+  const [insuranceProvider, setInsuranceProvider] = useState("");
+  const [insurancePolicyNum, setInsurancePolicyNum] = useState("");
+  const [allergies, setAllergies] = useState("");
+  const [meds, setMeds] = useState("");
+  const [famHx, setFamHx] = useState("");
+  const [pmh, setPmh] = useState("");
+  const [idType, setIdType] = useState("");
+  const [idNum, setIdNum] = useState("");
+  const [file, setFile] = useState("");
+  const [fileIncluded, setFileIncluded] = useState("");
+  const [idTypeIncluded, setIdTypeIncluded] = useState("");
+  const [idNumIncluded, setIdNumIncluded] = useState("");
+  const [consent1, setconsent1] = useState(false);
+  const [consent2, setconsent2] = useState(false);
+  const [consent3, setconsent3] = useState(false);
+  const [consentGiven, setConsentGiven] = useState(false);
   const navigate = useNavigate();
 
   const filter = /^([a-zA-Z0-9_.-])+@(([a-zA-Z0-9-])+.)+([a-zA-Z0-9]{2,4})+$/;
+
+  function handleSelectPhysician(val, img) {
+    setPhysician(val);
+    setPhysicianImg(img);
+  }
+
+  function handleDropdown() {
+    !dropdownIsOpen ? setDropdownIsOpen(true) : setDropdownIsOpen(false);
+  }
 
   function handleSignUp() {
     if (name.length < 1) {
@@ -52,10 +106,23 @@ const PatientForm = ({ userInfo }) => {
     if (contactNumber.length < 10 || contactNumber.length > 15) {
       setContactNumberIncluded(true);
     } else setContactNumberIncluded(false);
+    if (!physician) setPhysicianIncluded(true);
+    else setPhysicianIncluded(false);
+    if (!idType) setIdTypeIncluded(true);
+    else setIdTypeIncluded(false);
+    if (!idNum) setIdNumIncluded(true);
+    else setIdNumIncluded(false);
+    if (!consent1 && !consent2 && !consent3) setConsentGiven(true);
+    else if (consent1 && consent2 && consent3) setConsentGiven(false);
+
     if (
+      consent1 &&
+      consent2 &&
+      consent3 &&
       contactName.length > 1 &&
       contactNumber.length > 10 &&
       contactNumber.length < 16 &&
+      contactNumber !== number &&
       occupation.length >= 3 &&
       address.length >= 3 &&
       gender &&
@@ -63,10 +130,15 @@ const PatientForm = ({ userInfo }) => {
       name.length > 1 &&
       filter.test(email) &&
       number.length > 10 &&
-      number.length < 16
+      number.length < 16 &&
+      physician &&
+      idType &&
+      idNum
     ) {
       setAllIncluded(true);
       navigate("/scheduleappointment");
+    } else if (contactNumber === number) {
+      setContactNumberIncluded(true);
     }
   }
 
@@ -114,6 +186,7 @@ const PatientForm = ({ userInfo }) => {
                     value={name}
                     onChange={(e) => {
                       setName(e.target.value);
+                      setNameIncluded(false);
                     }}
                     placeholder="ex: Stephanie Julius"
                     className="bg-transparent text-white font-normal text-base w-full"
@@ -155,7 +228,10 @@ const PatientForm = ({ userInfo }) => {
                         id="email"
                         pattern=".+@example\.com"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                          setEmailIncluded(false);
+                        }}
                         placeholder="youremail@email.com"
                         className="bg-transparent text-white font-normal text-base w-full"
                       />
@@ -201,7 +277,10 @@ const PatientForm = ({ userInfo }) => {
                         value={number}
                         minLength={8}
                         maxLength={15}
-                        onChange={(e) => setNumber(e.target.value)}
+                        onChange={(e) => {
+                          setNumber(e.target.value);
+                          setNumIncluded(false);
+                        }}
                         placeholder="ex: +1 (868) 579-9831"
                         className="bg-transparent text-white font-normal text-base w-full"
                       />
@@ -246,6 +325,7 @@ const PatientForm = ({ userInfo }) => {
                         value={dob}
                         onChange={(e) => {
                           setDob(e.target.value);
+                          setDobIncluded(false);
                         }}
                         placeholder="Select your birth date"
                         className="bg-transparent text-white font-normal text-base w-full"
@@ -264,7 +344,7 @@ const PatientForm = ({ userInfo }) => {
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
                   id="number">
-                  Insurance policy number
+                  Gender
                   <div className="grid grid-cols-2 md:flex gap-4">
                     <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2 w-full">
                       <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -275,6 +355,7 @@ const PatientForm = ({ userInfo }) => {
                           value="Male"
                           onClick={(e) => {
                             setGender(e.target.value);
+                            setGenderIncluded(false);
                           }}
                           className="bg-transparent text-white font-normal text-base"
                         />
@@ -329,7 +410,10 @@ const PatientForm = ({ userInfo }) => {
                         type="text"
                         id="address"
                         value={address}
-                        onChange={(e) => setAddress(e.target.value)}
+                        onChange={(e) => {
+                          setAddress(e.target.value);
+                          setAddressIncluded(false);
+                        }}
                         placeholder="ex: 14 street, New York, NY - 5101"
                         className="bg-transparent text-white font-normal text-base w-full"
                       />
@@ -356,7 +440,10 @@ const PatientForm = ({ userInfo }) => {
                         value={occupation}
                         minLength={8}
                         maxLength={15}
-                        onChange={(e) => setOccupation(e.target.value)}
+                        onChange={(e) => {
+                          setOccupation(e.target.value);
+                          setOccupationIncluded(false);
+                        }}
                         placeholder="Software developer"
                         className="bg-transparent text-white font-normal text-base w-full"
                       />
@@ -384,7 +471,10 @@ const PatientForm = ({ userInfo }) => {
                         type="text"
                         id="contactname"
                         value={contactName}
-                        onChange={(e) => setContactName(e.target.value)}
+                        onChange={(e) => {
+                          setContactName(e.target.value);
+                          setContactNameIncluded(false);
+                        }}
                         placeholder="Guardian’s name"
                         className="bg-transparent text-white font-normal text-base w-full"
                       />
@@ -430,7 +520,10 @@ const PatientForm = ({ userInfo }) => {
                         value={contactNumber}
                         minLength={8}
                         maxLength={15}
-                        onChange={(e) => setContactNumber(e.target.value)}
+                        onChange={(e) => {
+                          setContactNumber(e.target.value);
+                          setContactNumberIncluded(false);
+                        }}
                         placeholder="ex: +1 (868) 579-9831"
                         className="bg-transparent text-white font-normal text-base w-full"
                       />
@@ -461,23 +554,502 @@ const PatientForm = ({ userInfo }) => {
               Primary care physician
               <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                 <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
-                  <div className="bg-transparent text-white font-normal text-base w-full">
-                    <div className="p-3 bg-gradient-to-br from-[#d7ecec] from-[-650%] rounded-lg border border-white/10 justify-start items-center gap-1.5 inline-flex">
-                      <div className="border rounded-full h-8 w-8 flex justify-center items-center">
-                        <FontAwesomeIcon icon={faUserMd} />
+                  <div onClick={() => handleDropdown()}>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg">
+                      <path
+                        d="M20 20L16.889 16.8889M19.1111 11.5556C19.1111 15.7284 15.7284 19.1111 11.5556 19.1111C7.38274 19.1111 4 15.7284 4 11.5556C4 7.38274 7.38274 4 11.5556 4C15.7284 4 19.1111 7.38274 19.1111 11.5556Z"
+                        stroke="#CDE9DF"
+                        stroke-width="1.66667"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </div>
+
+                  <div
+                    className="bg-transparent text-white font-normal text-base w-full flex justify-between items-center"
+                    onClick={() => handleDropdown()}>
+                    <div className="px-3 py-1 bg-gradient-to-br from-[#d7ecec] from-[-650%] rounded-lg border border-white/10 justify-start items-center gap-1.5 inline-flex">
+                      <div className="border rounded-full h-6 w-6 flex justify-center items-center">
+                        <img src={physicianImg} className="w-full" />
                       </div>
 
-                      <span>Select your Physician</span>
+                      <span>
+                        {" "}
+                        {!physician
+                          ? "Please select your Physician"
+                          : physician}
+                      </span>
+                    </div>
+                    <div
+                      className="hover:border-white hover:border-2 hover:rounded-lg"
+                      onClick={() => handleDropdown()}>
+                      {!dropdownIsOpen ? (
+                        <svg
+                          className="rotate-180"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <g id="chevron-down">
+                            <path
+                              id="icon"
+                              d="M18 10L12.7071 15.2929C12.3166 15.6834 11.6834 15.6834 11.2929 15.2929L6 10"
+                              stroke="#B6F09C"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                        </svg>
+                      ) : (
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <g id="chevron-down">
+                            <path
+                              id="icon"
+                              d="M18 10L12.7071 15.2929C12.3166 15.6834 11.6834 15.6834 11.2929 15.2929L6 10"
+                              stroke="#B6F09C"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                        </svg>
+                      )}
                     </div>
                   </div>
+                </div>
+              </div>
+              {dropdownIsOpen && (
+                <ul className="border border-white/10 rounded-lg">
+                  {doctors.map((doctor, i) => (
+                    <li
+                      key={[i]}
+                      onClick={() => {
+                        handleSelectPhysician(doctor.name, doctor.img);
+                        handleDropdown();
+                        setPhysicianIncluded(false);
+                      }}
+                      className="p-3 hover:bg-gradient-to-br from-[#d7ecec] from-[-650%] hover:border border-white/10 justify-start items-center gap-4 inline-flex w-full 
+                        ">
+                      {" "}
+                      <div className="border rounded-full h-8 w-8 flex justify-center items-center">
+                        <img src={doctor.img} alt="" />
+                      </div>
+                      <span>{doctor.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </label>
+            <span
+              className={`text-[#f14e42] text-right ${
+                !physicianIncluded ? "hidden" : "block"
+              }`}>
+              Please select your Physician.
+            </span>
+            <div className="flex flex-col md:flex-row w-full gap-6">
+              <div className="flex flex-col gap-6 md:w-1/2">
+                <label
+                  className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
+                  id="email">
+                  Insurance provider
+                  <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
+                    <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
+                      <input
+                        type="text"
+                        id="address"
+                        value={insuranceProvider}
+                        onChange={(e) => {
+                          setInsuranceProvider(e.target.value);
+                        }}
+                        placeholder="ex: BlueCross"
+                        className="bg-transparent text-white font-normal text-base w-full"
+                      />
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div className="flex flex-col gap-6 md:w-1/2">
+                <label
+                  className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
+                  id="number">
+                  Insurance policy number
+                  <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
+                    <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
+                      <input
+                        type="text"
+                        id="occupation"
+                        value={insurancePolicyNum}
+                        minLength={8}
+                        maxLength={15}
+                        onChange={(e) => {
+                          setInsurancePolicyNum(e.target.value);
+                        }}
+                        placeholder="ex: ABC1234567"
+                        className="bg-transparent text-white font-normal text-base w-full"
+                      />
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row w-full gap-6">
+              <div className="flex flex-col gap-6 md:w-1/2">
+                <label
+                  className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
+                  id="email">
+                  Allergies (if any)
+                  <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
+                    <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
+                      <textarea
+                        name=""
+                        id=""
+                        cols="30"
+                        rows="10"
+                        className="bg-transparent text-white font-normal text-base w-full h-24"
+                        onChange={(e) => setAllergies(e.target.value)}
+                        placeholder="ex: Peanuts, Penicillin, Pollen"></textarea>
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div className="flex flex-col gap-6 md:w-1/2">
+                <label
+                  className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
+                  id="number">
+                  Current medications
+                  <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
+                    <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
+                      <textarea
+                        name=""
+                        id=""
+                        cols="30"
+                        rows="10"
+                        className="bg-transparent text-white font-normal text-base w-full h-24"
+                        onChange={(e) => setMeds(e.target.value)}
+                        placeholder="ex: Ibuprofen 200mg, Levothyroxine 50mcg"></textarea>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row w-full gap-6">
+              <div className="flex flex-col gap-6 md:w-1/2">
+                <label
+                  className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
+                  id="email">
+                  Family medical history (if relevant)
+                  <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
+                    <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
+                      <textarea
+                        name=""
+                        id=""
+                        cols="30"
+                        rows="10"
+                        className="bg-transparent text-white font-normal text-base w-full h-24"
+                        onChange={(e) => setFamHx(e.target.value)}
+                        placeholder="ex: Mother had breast cancer"></textarea>
+                    </div>
+                  </div>
+                </label>
+              </div>
+              <div className="flex flex-col gap-6 md:w-1/2">
+                <label
+                  className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
+                  id="number">
+                  Past medical history
+                  <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
+                    <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
+                      <textarea
+                        name=""
+                        id=""
+                        cols="30"
+                        rows="10"
+                        className="bg-transparent text-white font-normal text-base w-full h-24"
+                        onChange={(e) => setPmh(e.target.value)}
+                        placeholder="ex: Asthma diagnosis in childhood"></textarea>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </section>
+
+          <section className="mt-[36px] flex flex-col gap-6">
+            <h2 className=" text-xl md:text-3xl font-bold leading-9 mb-9">
+              Identification and Verfication
+            </h2>
+            <label
+              className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
+              id="name">
+              Identification type
+              <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
+                <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
+                  <div
+                    className="bg-transparent text-white font-normal text-base w-full flex justify-between items-center"
+                    onClick={() => handleDropdown()}>
+                    <span> {!idType ? "Choose an ID type" : idType}</span>
+                    <div
+                      className="hover:border-white hover:border-2 hover:rounded-lg"
+                      onClick={() => handleDropdown()}>
+                      {!dropdownIsOpen ? (
+                        <svg
+                          className="rotate-180"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <g id="chevron-down">
+                            <path
+                              id="icon"
+                              d="M18 10L12.7071 15.2929C12.3166 15.6834 11.6834 15.6834 11.2929 15.2929L6 10"
+                              stroke="#B6F09C"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                        </svg>
+                      ) : (
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <g id="chevron-down">
+                            <path
+                              id="icon"
+                              d="M18 10L12.7071 15.2929C12.3166 15.6834 11.6834 15.6834 11.2929 15.2929L6 10"
+                              stroke="#B6F09C"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                        </svg>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {dropdownIsOpen && (
+                <ul className="border border-white/10 rounded-lg">
+                  {id.map((idt, i) => (
+                    <li
+                      key={[i]}
+                      onClick={() => {
+                        setIdType(idt);
+                        handleDropdown();
+                        setIdTypeIncluded(false);
+                      }}
+                      className="p-3 hover:bg-gradient-to-br from-[#d7ecec] from-[-650%] hover:border border-white/10 justify-start items-center gap-4 inline-flex w-full 
+                        ">
+                      {" "}
+                      <span>{idt}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </label>
+            <span
+              className={`text-[#f14e42] text-right ${
+                !idTypeIncluded ? "hidden" : "block"
+              }`}>
+              Please select your means of Identification.
+            </span>
+            <label
+              className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
+              id="name">
+              Identification Number
+              <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
+                <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
+                  <input
+                    type="text"
+                    id="idnum"
+                    value={idNum}
+                    onChange={(e) => {
+                      setIdNum(e.target.value);
+                      setIdNumIncluded(false);
+                    }}
+                    placeholder="ex: 1234567"
+                    className="bg-transparent text-white font-normal text-base w-full"
+                  />
                 </div>
               </div>
             </label>
             <span
               className={`text-[#f14e42] text-right ${
-                !nameIncluded ? "hidden" : "block"
+                !idNumIncluded ? "hidden" : "block"
+              }`}>
+              Please enter your Identification number.
+            </span>
+            <label
+              className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
+              htmlFor="dropzone-file">
+              Scanned Copy of Identification Document
+              <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
+                {!file ? (
+                  <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-5 bg-[#1a1d21] rounded-lg border border-[#363a3d] items-center justify-center gap-3 inline-flex w-full ">
+                    <div className="flex flex-col items-center justify-center ">
+                      <div className="p-2.5 bg-[#2d3136] rounded-[28px] justify-center items-center inline-flex mb-3">
+                        {" "}
+                        <svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M6.66663 13.3333L9.99996 10M9.99996 10L13.3333 13.3333M9.99996 10V17.5M16.6666 13.9524C17.6845 13.1117 18.3333 11.8399 18.3333 10.4167C18.3333 7.88536 16.2813 5.83333 13.75 5.83333C13.5679 5.83333 13.3975 5.73833 13.3051 5.58145C12.2183 3.73736 10.212 2.5 7.91663 2.5C4.46485 2.5 1.66663 5.29822 1.66663 8.75C1.66663 10.4718 2.36283 12.0309 3.48908 13.1613"
+                            stroke="#24AE7C"
+                            stroke-width="1.66667"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          />
+                        </svg>
+                      </div>
+
+                      <p class="mb-1 text-sm text-gray-500 dark:text-gray-400">
+                        <span class="font-semibold text-[#24AE7C]">
+                          Click to upload
+                        </span>{" "}
+                        or drag and drop
+                      </p>
+                      <p class="text-xs text-gray-500 dark:text-gray-400">
+                        SVG, PNG, JPG or GIF (MAX. 800x400px)
+                      </p>
+                    </div>
+                    <input
+                      id="dropzone-file"
+                      type="file"
+                      class="hidden"
+                      value={file}
+                      onChange={(e) => {
+                        setFile(e.target.value);
+                        setFileIncluded(false);
+                      }}
+                    />
+                  </div>
+                ) : (
+                  file
+                )}
+              </div>
+            </label>
+            <span
+              className={`text-[#f14e42] text-right ${
+                !fileIncluded ? "hidden" : "block"
               }`}>
               Please enter your name.
+            </span>
+          </section>
+
+          <section className="mt-20 flex flex-col gap-6">
+            <h2 className=" text-xl md:text-3xl font-bold leading-9 mb-3">
+              Consent and Privacy
+            </h2>
+            <div className="flex gap-2 items-center">
+              <input
+                className="
+        peer relative appearance-none shrink-0 w-6 h-6 border-2 border-[#363A3D] bg-[#1a1d21] rounded-sm mt-1 
+        focus:outline-none focus:ring-offset-0 focus:ring-1 
+        checked:bg-gradient-to-tr checked:from-[#4d62e5] checked:via-[#87dded] checked:to-[#b6f09c] checked:border-0 hover:bg-gradient-to-tr hover:from-[#4d62e5] hover:via-[#87dded] hover:to-[#8d8d8d]
+      hover:border-0"
+                value={consent1}
+                onClick={() => setconsent1(true)}
+                type="checkbox"
+              />
+              <svg
+                className="absolute w-4 h-4 pointer-events-none hidden peer-checked:block stroke-black outline-none mt-1 ml-1 "
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+
+              <label htmlFor="receive-treatment">
+                I consent to receive treatment for my health condition.
+              </label>
+            </div>
+            <div className="flex gap-2 items-center">
+              <input
+                className="
+        peer relative appearance-none shrink-0 w-6 h-6 border-2 border-[#363A3D] bg-[#1a1d21] rounded-sm mt-1 
+        focus:outline-none focus:ring-offset-0 focus:ring-1 
+        checked:bg-gradient-to-tr checked:from-[#4d62e5] checked:via-[#87dded] checked:to-[#b6f09c] checked:border-0 hover:bg-gradient-to-tr hover:from-[#4d62e5] hover:via-[#87dded] hover:to-[#8d8d8d]
+      hover:border-0"
+                type="checkbox"
+                value={consent2}
+                onClick={() => setconsent2(true)}
+              />
+              <svg
+                className="absolute w-4 h-4 pointer-events-none hidden peer-checked:block stroke-black outline-none mt-1 ml-1 "
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+
+              <label htmlFor="receive-treatment">
+                I consent to the use and disclosure of my health information for
+                treatment purposes.
+              </label>
+            </div>
+            <div className="flex gap-2 items-center">
+              <input
+                className="
+        peer relative appearance-none shrink-0 w-6 h-6 border-2 border-[#363A3D] bg-[#1a1d21] rounded-sm mt-1 
+        focus:outline-none focus:ring-offset-0 focus:ring-1 
+        checked:bg-gradient-to-tr checked:from-[#4d62e5] checked:via-[#87dded] checked:to-[#b6f09c] checked:border-0 hover:bg-gradient-to-tr hover:from-[#4d62e5] hover:via-[#87dded] hover:to-[#8d8d8d]
+      hover:border-0"
+                type="checkbox"
+                value={consent3}
+                onClick={() => setconsent3(true)}
+              />
+              <svg
+                className="absolute w-4 h-4 pointer-events-none hidden peer-checked:block stroke-black outline-none mt-1 ml-1 "
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="4"
+                strokeLinecap="round"
+                strokeLinejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+
+              <label htmlFor="receive-treatment">
+                I acknowledge that I have reviewed and agree to the privacy
+                policy.
+              </label>
+            </div>
+            <span
+              className={`text-[#f14e42] text-right ${
+                !consentGiven ? "hidden" : "block"
+              }`}>
+              Please ensure that all boxes have been ticked before clicking
+              "submit".
             </span>
           </section>
 
@@ -495,6 +1067,17 @@ const PatientForm = ({ userInfo }) => {
                   occupation: occupation,
                   contactName: contactName,
                   contactNumber: contactNumber,
+                  doctor: physician,
+                  doctorImg: physicianImg,
+                  insuranceProvider: insuranceProvider,
+                  insurancePolicyNum: insurancePolicyNum,
+                  allergies: allergies,
+                  meds: meds,
+                  famHx: famHx,
+                  pmh: pmh,
+                  idType: idType,
+                  idNum: idNum,
+                  file: file,
                 });
               console.log(userInfo);
               handleSignUp();

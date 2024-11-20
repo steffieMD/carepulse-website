@@ -24,7 +24,11 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter
+      future={{
+        v7_startTransition: true,
+        v7_relativeSplatPath: true,
+      }}>
       <div className="bg-[#131619] font-plusJakarta">
         <Navbar />
         <Routes>
@@ -42,7 +46,7 @@ function App() {
           />
           <Route
             path="/scheduleappointment"
-            element={<ScheduleAppointment />}
+            element={<ScheduleAppointment userInfo={userInfo} />}
           />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/success" element={<Success />} />
