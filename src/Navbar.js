@@ -1,16 +1,26 @@
 import React from "react";
 import { Link } from "../node_modules/react-router-dom/dist/index";
 
+// const Navbar = ({ linkPath, handlePath }) => {
 const Navbar = () => {
   return (
-    <div className=" px-10 md:pl-20 lg:pl-[110px] ">
+    // <div
+    //   className={`px-10 md:px-20 lg:px-[110px] relative ${
+    //     linkPath === "/success" ? "flex justify-center" : "justify-start"
+    //   }`}
+    // >
+    <div
+      className={`px-10 md:px-20 lg:px-[110px] relative justify-start
+      }`}
+    >
       <Link to="/" className="flex items-center gap-[10px] pt-[60px]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="32"
           height="32"
           viewBox="0 0 32 32"
-          fill="none">
+          fill="none"
+        >
           <rect
             x="0.1"
             y="0.1"
@@ -56,7 +66,8 @@ const Navbar = () => {
               y1="0"
               x2="16"
               y2="32"
-              gradientUnits="userSpaceOnUse">
+              gradientUnits="userSpaceOnUse"
+            >
               <stop stop-color="white" />
               <stop offset="1" stop-color="#D0D5DD" />
             </linearGradient>
@@ -66,7 +77,8 @@ const Navbar = () => {
               y1="22.2137"
               x2="24.8347"
               y2="4.57791"
-              gradientUnits="userSpaceOnUse">
+              gradientUnits="userSpaceOnUse"
+            >
               <stop stop-color="#0076C1" />
               <stop offset="0.0737" stop-color="#0B82C6" />
               <stop offset="0.2766" stop-color="#269ED3" />
@@ -79,7 +91,8 @@ const Navbar = () => {
               y1="22.2537"
               x2="24.8274"
               y2="4.56509"
-              gradientUnits="userSpaceOnUse">
+              gradientUnits="userSpaceOnUse"
+            >
               <stop stop-color="#00A482" />
               <stop offset="1" stop-color="#79DD83" />
             </linearGradient>
@@ -89,7 +102,8 @@ const Navbar = () => {
               y1="11.5073"
               x2="25.5288"
               y2="8.11317"
-              gradientUnits="userSpaceOnUse">
+              gradientUnits="userSpaceOnUse"
+            >
               <stop stop-color="#00A482" />
               <stop offset="1" stop-color="#79DD83" />
             </linearGradient>

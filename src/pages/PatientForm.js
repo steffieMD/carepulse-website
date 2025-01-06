@@ -1,13 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "../../node_modules/react-router-dom/dist/index";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserMd } from "@fortawesome/free-solid-svg-icons";
+
 import doc1 from "../assets/png/sarah.png";
 import doc2 from "../assets/png/ava.png";
 import doc3 from "../assets/png/adam.png";
+import formImg from "../assets/png/patient-form-img.png";
 
-const PatientForm = ({ userInfo }) => {
+const PatientForm = ({ savePatientInfo }) => {
+  // handlePath("/patientform");
   const [email, setEmail] = useState("");
   const [number, setNumber] = useState("");
   const [name, setName] = useState("");
@@ -143,8 +144,8 @@ const PatientForm = ({ userInfo }) => {
   }
 
   return (
-    <div className="text-white mt-[76px]">
-      <div className="px-10 md:px-20 lg:px-[110px]">
+    <div className="text-white mt-[76px] flex">
+      <div className="px-10 md:px-20 lg:px-[110px] md:w-[75%] lg:w-[73%] ">
         <h1 className="text-2xl md:text-4xl font-bold leading-[44px] mb-[10px]">
           Welcome 👋
         </h1>
@@ -160,7 +161,8 @@ const PatientForm = ({ userInfo }) => {
 
             <label
               className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-              id="name">
+              id="name"
+            >
               Full name
               <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                 <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -170,7 +172,8 @@ const PatientForm = ({ userInfo }) => {
                       height="24"
                       viewBox="0 0 24 24"
                       fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path
                         d="M19 21C19 17.6863 16.3137 15 13 15H11C7.68629 15 5 17.6863 5 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z"
                         stroke="#CDE9DF"
@@ -197,14 +200,16 @@ const PatientForm = ({ userInfo }) => {
             <span
               className={`text-[#f14e42] text-right ${
                 !nameIncluded ? "hidden" : "block"
-              }`}>
+              }`}
+            >
               Please enter your name.
             </span>
             <div className="flex flex-col md:flex-row w-full gap-6">
               <div className="flex flex-col gap-6 md:w-1/2">
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-                  id="email">
+                  id="email"
+                >
                   Email address
                   <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                     <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -214,7 +219,8 @@ const PatientForm = ({ userInfo }) => {
                           height="24"
                           viewBox="0 0 24 24"
                           fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <path
                             d="M4 6L10 12M20 6L14 12M10 12L10.5858 12.5858C11.3668 13.3668 12.6332 13.3668 13.4142 12.5858L14 12M10 12L3.87868 18.1213M14 12L20.1213 18.1213M20.1213 18.1213C20.6642 17.5784 21 16.8284 21 16V7C21 5.89543 20.1046 5 19 5H5C3.89543 5 3 5.89543 3 7V16C3 16.8284 3.33579 17.5784 3.87868 18.1213M20.1213 18.1213C19.5784 18.6642 18.8284 19 18 19H6C5.17157 19 4.42157 18.6642 3.87868 18.1213"
                             stroke="#CDE9DF"
@@ -241,14 +247,16 @@ const PatientForm = ({ userInfo }) => {
                 <span
                   className={`text-[#f14e42] text-right ${
                     !emailIncluded ? "hidden" : "block"
-                  }`}>
+                  }`}
+                >
                   Please enter your correct email.
                 </span>
               </div>
               <div className="flex flex-col gap-6 md:w-1/2">
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-                  id="number">
+                  id="number"
+                >
                   Phone number
                   <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                     <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -258,7 +266,8 @@ const PatientForm = ({ userInfo }) => {
                           height="24"
                           viewBox="0 0 24 24"
                           fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <g id="Lead Icon">
                             <path
                               id="icon"
@@ -290,7 +299,8 @@ const PatientForm = ({ userInfo }) => {
                 <span
                   className={`text-[#f14e42] text-right ${
                     !numIncluded ? "hidden" : "block"
-                  }`}>
+                  }`}
+                >
                   Please enter your correct phone number.
                 </span>
               </div>
@@ -299,7 +309,8 @@ const PatientForm = ({ userInfo }) => {
               <div className="flex flex-col gap-6 md:w-1/2">
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-                  id="email">
+                  id="email"
+                >
                   Date of birth
                   <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                     <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -309,7 +320,8 @@ const PatientForm = ({ userInfo }) => {
                           height="24"
                           viewBox="0 0 24 24"
                           fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <path
                             d="M20 10.2H4M15.5556 3V6.6M8.44444 3V6.6M8.26667 21H15.7333C17.2268 21 17.9735 21 18.544 20.7057C19.0457 20.4469 19.4537 20.0338 19.7094 19.5258C20 18.9482 20 18.1921 20 16.68V9.12C20 7.60786 20 6.85179 19.7094 6.27423C19.4537 5.76619 19.0457 5.35314 18.544 5.09428C17.9735 4.8 17.2268 4.8 15.7333 4.8H8.26667C6.77319 4.8 6.02646 4.8 5.45603 5.09428C4.95426 5.35314 4.54631 5.76619 4.29065 6.27423C4 6.85179 4 7.60786 4 9.12V16.68C4 18.1921 4 18.9482 4.29065 19.5258C4.54631 20.0338 4.95426 20.4469 5.45603 20.7057C6.02646 21 6.77319 21 8.26667 21Z"
                             stroke="#CDE9DF"
@@ -336,16 +348,18 @@ const PatientForm = ({ userInfo }) => {
                 <span
                   className={`text-[#f14e42] text-right ${
                     !dobIncluded ? "hidden" : "block"
-                  }`}>
+                  }`}
+                >
                   Please enter your date of birth.
                 </span>
               </div>
               <div className="flex flex-col gap-6 md:w-1/2">
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-                  id="number">
+                  id="number"
+                >
                   Gender
-                  <div className="grid grid-cols-2 md:flex gap-4">
+                  <div className="grid grid-cols-2 lg:flex gap-4">
                     <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2 w-full">
                       <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
                         <input
@@ -393,7 +407,8 @@ const PatientForm = ({ userInfo }) => {
                 <span
                   className={`text-[#f14e42] text-right ${
                     !genderIncluded ? "hidden" : "block"
-                  }`}>
+                  }`}
+                >
                   Please enter select your gender.
                 </span>
               </div>
@@ -402,7 +417,8 @@ const PatientForm = ({ userInfo }) => {
               <div className="flex flex-col gap-6 md:w-1/2">
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-                  id="email">
+                  id="email"
+                >
                   Address
                   <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                     <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -423,14 +439,16 @@ const PatientForm = ({ userInfo }) => {
                 <span
                   className={`text-[#f14e42] text-right ${
                     !addressIncluded ? "hidden" : "block"
-                  }`}>
+                  }`}
+                >
                   Please enter your correct address.
                 </span>
               </div>
               <div className="flex flex-col gap-6 md:w-1/2">
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-                  id="number">
+                  id="number"
+                >
                   Occupation
                   <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                     <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -453,7 +471,8 @@ const PatientForm = ({ userInfo }) => {
                 <span
                   className={`text-[#f14e42] text-right ${
                     !occupationIncluded ? "hidden" : "block"
-                  }`}>
+                  }`}
+                >
                   Please enter your occupation.
                 </span>
               </div>
@@ -463,7 +482,8 @@ const PatientForm = ({ userInfo }) => {
               <div className="flex flex-col gap-6 md:w-1/2">
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-                  id="email">
+                  id="email"
+                >
                   Emergency contact name
                   <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                     <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -484,14 +504,16 @@ const PatientForm = ({ userInfo }) => {
                 <span
                   className={`text-[#f14e42] text-right ${
                     !contactNameIncluded ? "hidden" : "block"
-                  }`}>
+                  }`}
+                >
                   Please enter the name of your Emergency contact.
                 </span>
               </div>
               <div className="flex flex-col gap-6 md:w-1/2">
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-                  id="number">
+                  id="number"
+                >
                   Phone number
                   <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                     <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -501,7 +523,8 @@ const PatientForm = ({ userInfo }) => {
                           height="24"
                           viewBox="0 0 24 24"
                           fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <g id="Lead Icon">
                             <path
                               id="icon"
@@ -535,7 +558,8 @@ const PatientForm = ({ userInfo }) => {
                     !contactNumberIncluded || contactNumber !== number
                       ? "hidden"
                       : "block"
-                  }`}>
+                  }`}
+                >
                   {number === contactNumber && contactNumber.length > 10
                     ? "Phone number and emergency contact number can not be the same!"
                     : " Please enter the correct phone number of your emergency contact."}
@@ -550,7 +574,8 @@ const PatientForm = ({ userInfo }) => {
             </h2>
             <label
               className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-              id="name">
+              id="name"
+            >
               Primary care physician
               <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                 <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -560,7 +585,8 @@ const PatientForm = ({ userInfo }) => {
                       height="24"
                       viewBox="0 0 24 24"
                       fill="none"
-                      xmlns="http://www.w3.org/2000/svg">
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
                       <path
                         d="M20 20L16.889 16.8889M19.1111 11.5556C19.1111 15.7284 15.7284 19.1111 11.5556 19.1111C7.38274 19.1111 4 15.7284 4 11.5556C4 7.38274 7.38274 4 11.5556 4C15.7284 4 19.1111 7.38274 19.1111 11.5556Z"
                         stroke="#CDE9DF"
@@ -573,7 +599,8 @@ const PatientForm = ({ userInfo }) => {
 
                   <div
                     className="bg-transparent text-white font-normal text-base w-full flex justify-between items-center"
-                    onClick={() => handleDropdown()}>
+                    onClick={() => handleDropdown()}
+                  >
                     <div className="px-3 py-1 bg-gradient-to-br from-[#d7ecec] from-[-650%] rounded-lg border border-white/10 justify-start items-center gap-1.5 inline-flex">
                       <div className="border rounded-full h-6 w-6 flex justify-center items-center">
                         <img src={physicianImg} className="w-full" />
@@ -588,7 +615,8 @@ const PatientForm = ({ userInfo }) => {
                     </div>
                     <div
                       className="hover:border-white hover:border-2 hover:rounded-lg"
-                      onClick={() => handleDropdown()}>
+                      onClick={() => handleDropdown()}
+                    >
                       {!dropdownIsOpen ? (
                         <svg
                           className="rotate-180"
@@ -596,7 +624,8 @@ const PatientForm = ({ userInfo }) => {
                           height="24"
                           viewBox="0 0 24 24"
                           fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <g id="chevron-down">
                             <path
                               id="icon"
@@ -614,7 +643,8 @@ const PatientForm = ({ userInfo }) => {
                           height="24"
                           viewBox="0 0 24 24"
                           fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <g id="chevron-down">
                             <path
                               id="icon"
@@ -642,7 +672,8 @@ const PatientForm = ({ userInfo }) => {
                         setPhysicianIncluded(false);
                       }}
                       className="p-3 hover:bg-gradient-to-br from-[#d7ecec] from-[-650%] hover:border border-white/10 justify-start items-center gap-4 inline-flex w-full 
-                        ">
+                        "
+                    >
                       {" "}
                       <div className="border rounded-full h-8 w-8 flex justify-center items-center">
                         <img src={doctor.img} alt="" />
@@ -656,14 +687,16 @@ const PatientForm = ({ userInfo }) => {
             <span
               className={`text-[#f14e42] text-right ${
                 !physicianIncluded ? "hidden" : "block"
-              }`}>
+              }`}
+            >
               Please select your Physician.
             </span>
             <div className="flex flex-col md:flex-row w-full gap-6">
               <div className="flex flex-col gap-6 md:w-1/2">
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-                  id="email">
+                  id="email"
+                >
                   Insurance provider
                   <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                     <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -684,7 +717,8 @@ const PatientForm = ({ userInfo }) => {
               <div className="flex flex-col gap-6 md:w-1/2">
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-                  id="number">
+                  id="number"
+                >
                   Insurance policy number
                   <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                     <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -709,7 +743,8 @@ const PatientForm = ({ userInfo }) => {
               <div className="flex flex-col gap-6 md:w-1/2">
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-                  id="email">
+                  id="email"
+                >
                   Allergies (if any)
                   <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                     <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -720,7 +755,8 @@ const PatientForm = ({ userInfo }) => {
                         rows="10"
                         className="bg-transparent text-white font-normal text-base w-full h-24"
                         onChange={(e) => setAllergies(e.target.value)}
-                        placeholder="ex: Peanuts, Penicillin, Pollen"></textarea>
+                        placeholder="ex: Peanuts, Penicillin, Pollen"
+                      ></textarea>
                     </div>
                   </div>
                 </label>
@@ -728,7 +764,8 @@ const PatientForm = ({ userInfo }) => {
               <div className="flex flex-col gap-6 md:w-1/2">
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-                  id="number">
+                  id="number"
+                >
                   Current medications
                   <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                     <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -739,7 +776,8 @@ const PatientForm = ({ userInfo }) => {
                         rows="10"
                         className="bg-transparent text-white font-normal text-base w-full h-24"
                         onChange={(e) => setMeds(e.target.value)}
-                        placeholder="ex: Ibuprofen 200mg, Levothyroxine 50mcg"></textarea>
+                        placeholder="ex: Ibuprofen 200mg, Levothyroxine 50mcg"
+                      ></textarea>
                     </div>
                   </div>
                 </label>
@@ -749,7 +787,8 @@ const PatientForm = ({ userInfo }) => {
               <div className="flex flex-col gap-6 md:w-1/2">
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-                  id="email">
+                  id="email"
+                >
                   Family medical history (if relevant)
                   <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                     <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -760,7 +799,8 @@ const PatientForm = ({ userInfo }) => {
                         rows="10"
                         className="bg-transparent text-white font-normal text-base w-full h-24"
                         onChange={(e) => setFamHx(e.target.value)}
-                        placeholder="ex: Mother had breast cancer"></textarea>
+                        placeholder="ex: Mother had breast cancer"
+                      ></textarea>
                     </div>
                   </div>
                 </label>
@@ -768,7 +808,8 @@ const PatientForm = ({ userInfo }) => {
               <div className="flex flex-col gap-6 md:w-1/2">
                 <label
                   className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-                  id="number">
+                  id="number"
+                >
                   Past medical history
                   <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                     <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -779,7 +820,8 @@ const PatientForm = ({ userInfo }) => {
                         rows="10"
                         className="bg-transparent text-white font-normal text-base w-full h-24"
                         onChange={(e) => setPmh(e.target.value)}
-                        placeholder="ex: Asthma diagnosis in childhood"></textarea>
+                        placeholder="ex: Asthma diagnosis in childhood"
+                      ></textarea>
                     </div>
                   </div>
                 </label>
@@ -793,17 +835,20 @@ const PatientForm = ({ userInfo }) => {
             </h2>
             <label
               className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-              id="name">
+              id="name"
+            >
               Identification type
               <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                 <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
                   <div
                     className="bg-transparent text-white font-normal text-base w-full flex justify-between items-center"
-                    onClick={() => handleDropdown()}>
+                    onClick={() => handleDropdown()}
+                  >
                     <span> {!idType ? "Choose an ID type" : idType}</span>
                     <div
                       className="hover:border-white hover:border-2 hover:rounded-lg"
-                      onClick={() => handleDropdown()}>
+                      onClick={() => handleDropdown()}
+                    >
                       {!dropdownIsOpen ? (
                         <svg
                           className="rotate-180"
@@ -811,7 +856,8 @@ const PatientForm = ({ userInfo }) => {
                           height="24"
                           viewBox="0 0 24 24"
                           fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <g id="chevron-down">
                             <path
                               id="icon"
@@ -829,7 +875,8 @@ const PatientForm = ({ userInfo }) => {
                           height="24"
                           viewBox="0 0 24 24"
                           fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <g id="chevron-down">
                             <path
                               id="icon"
@@ -857,7 +904,8 @@ const PatientForm = ({ userInfo }) => {
                         setIdTypeIncluded(false);
                       }}
                       className="p-3 hover:bg-gradient-to-br from-[#d7ecec] from-[-650%] hover:border border-white/10 justify-start items-center gap-4 inline-flex w-full 
-                        ">
+                        "
+                    >
                       {" "}
                       <span>{idt}</span>
                     </li>
@@ -868,12 +916,14 @@ const PatientForm = ({ userInfo }) => {
             <span
               className={`text-[#f14e42] text-right ${
                 !idTypeIncluded ? "hidden" : "block"
-              }`}>
+              }`}
+            >
               Please select your means of Identification.
             </span>
             <label
               className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-              id="name">
+              id="name"
+            >
               Identification Number
               <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                 <div className=" text-base font-medium leading-normal tracking-tight  px-4 py-3 bg-[#1a1d21] rounded-lg border border-[#363a3d] justify-start items-center gap-3 inline-flex w-full ">
@@ -894,12 +944,14 @@ const PatientForm = ({ userInfo }) => {
             <span
               className={`text-[#f14e42] text-right ${
                 !idNumIncluded ? "hidden" : "block"
-              }`}>
+              }`}
+            >
               Please enter your Identification number.
             </span>
             <label
               className="text-[#abb7c3] text-sm font-mediu leading-tight tracking-tight cursor-pointer"
-              htmlFor="dropzone-file">
+              htmlFor="dropzone-file"
+            >
               Scanned Copy of Identification Document
               <div className="hover:bg-gradient-to-r from-[#82DBF7] to-[#B6F09C] mt-4  rounded-lg p-px  hover:bottom-2">
                 {!file ? (
@@ -912,7 +964,8 @@ const PatientForm = ({ userInfo }) => {
                           height="20"
                           viewBox="0 0 20 20"
                           fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <path
                             d="M6.66663 13.3333L9.99996 10M9.99996 10L13.3333 13.3333M9.99996 10V17.5M16.6666 13.9524C17.6845 13.1117 18.3333 11.8399 18.3333 10.4167C18.3333 7.88536 16.2813 5.83333 13.75 5.83333C13.5679 5.83333 13.3975 5.73833 13.3051 5.58145C12.2183 3.73736 10.212 2.5 7.91663 2.5C4.46485 2.5 1.66663 5.29822 1.66663 8.75C1.66663 10.4718 2.36283 12.0309 3.48908 13.1613"
                             stroke="#24AE7C"
@@ -952,7 +1005,8 @@ const PatientForm = ({ userInfo }) => {
             <span
               className={`text-[#f14e42] text-right ${
                 !fileIncluded ? "hidden" : "block"
-              }`}>
+              }`}
+            >
               Please enter your name.
             </span>
           </section>
@@ -980,7 +1034,8 @@ const PatientForm = ({ userInfo }) => {
                 stroke="currentColor"
                 strokeWidth="4"
                 strokeLinecap="round"
-                strokeLinejoin="round">
+                strokeLinejoin="round"
+              >
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
 
@@ -1007,7 +1062,8 @@ const PatientForm = ({ userInfo }) => {
                 stroke="currentColor"
                 strokeWidth="4"
                 strokeLinecap="round"
-                strokeLinejoin="round">
+                strokeLinejoin="round"
+              >
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
 
@@ -1035,7 +1091,8 @@ const PatientForm = ({ userInfo }) => {
                 stroke="currentColor"
                 strokeWidth="4"
                 strokeLinecap="round"
-                strokeLinejoin="round">
+                strokeLinejoin="round"
+              >
                 <polyline points="20 6 9 17 4 12"></polyline>
               </svg>
 
@@ -1047,7 +1104,8 @@ const PatientForm = ({ userInfo }) => {
             <span
               className={`text-[#f14e42] text-right ${
                 !consentGiven ? "hidden" : "block"
-              }`}>
+              }`}
+            >
               Please ensure that all boxes have been ticked before clicking
               "submit".
             </span>
@@ -1057,7 +1115,7 @@ const PatientForm = ({ userInfo }) => {
             onClick={(e) => {
               e.preventDefault();
               if (!allIncluded)
-                userInfo.push({
+                savePatientInfo({
                   name: name,
                   number: number,
                   email: email,
@@ -1079,7 +1137,7 @@ const PatientForm = ({ userInfo }) => {
                   idNum: idNum,
                   file: file,
                 });
-              console.log(userInfo);
+
               handleSignUp();
             }}
             type="submit"
@@ -1088,8 +1146,8 @@ const PatientForm = ({ userInfo }) => {
           />
         </form>
       </div>
-      <div>
-        <img src="" alt="" />
+      <div className="hidden md:block w-[27%] md:absolute top-0 right-0">
+        <img src={formImg} alt="" />
       </div>
     </div>
   );
