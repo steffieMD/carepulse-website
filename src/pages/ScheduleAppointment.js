@@ -7,7 +7,6 @@ import doc3 from "../assets/png/adam.png";
 import scheduleImg from "../assets/png/appointment-img.png";
 
 const ScheduleAppointment = ({ saveApptInfo }) => {
-  // handlePath("/scheduleappointment");
   const [allIncluded, setAllIncluded] = useState(false);
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
   const doctors = [

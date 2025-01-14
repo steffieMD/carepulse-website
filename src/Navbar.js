@@ -1,16 +1,10 @@
 import React from "react";
 import { Link } from "../node_modules/react-router-dom/dist/index";
 
-// const Navbar = ({ linkPath, handlePath }) => {
 const Navbar = () => {
   return (
-    // <div
-    //   className={`px-10 md:px-20 lg:px-[110px] relative ${
-    //     linkPath === "/success" ? "flex justify-center" : "justify-start"
-    //   }`}
-    // >
     <div
-      className={`px-10 md:px-20 lg:px-[110px] relative justify-start
+      className={`px-10 md:px-20 lg:px-[110px] z-20 relative justify-start
       }`}
     >
       <Link to="/" className="flex items-center gap-[10px] pt-[60px]">

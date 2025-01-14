@@ -24,6 +24,10 @@ const Success = ({ appt }) => {
   const hours = scheduledDate.getHours();
   const minutes = scheduledDate.getMinutes();
 
+  const selectedDate = `${day} ${months[month]} ${year} - ${
+    hours > 12 ? 24 - hours : hours
+  }:${minutes} ${hours > 12 ? "PM" : "AM"}`;
+
   return (
     <div className="text-white flex flex-col items-center h-[80vh] justify-center">
       <div className="xl:w-[66%] flex flex-col items-center justify-center">
@@ -96,9 +100,7 @@ const Success = ({ appt }) => {
                 />
               </svg>
             </div>
-            <span>{`${day} ${months[month]} ${year} - ${
-              hours > 12 ? 24 - hours : hours
-            }:${minutes} ${hours > 12 ? "PM" : "AM"}`}</span>
+            <span>{selectedDate}</span>
           </div>
         </div>
       </div>
