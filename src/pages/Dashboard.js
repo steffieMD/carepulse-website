@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import adminImg from "../assets/png/admin.png";
 import calendarCheckGlow from "../assets/svg/calendar-Glow.svg";
@@ -13,175 +13,157 @@ import doc1 from "../assets/png/sarah.png";
 import doc2 from "../assets/png/ava.png";
 import doc3 from "../assets/png/adam.png";
 
+const statuses = {
+  Scheduled: (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 12 13"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="check">
+        <path
+          id="icon"
+          d="M1.5 5.9L4.14546 8.72183C4.54054 9.14324 5.20946 9.14324 5.60454 8.72183L10.5 3.5"
+          stroke="#24ae7c"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </g>
+    </svg>
+  ),
+  Pending: (
+    <svg
+      className=""
+      width="12"
+      height="12"
+      viewBox="0 0 50 35"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        id="Icon"
+        d="M24.0002 16.9998L18.303 12.2522C17.4565 11.5468 17.0333 11.1941 16.729 10.7618C16.4594 10.3787 16.2592 9.95122 16.1375 9.49888C16.0002 8.98835 16.0002 8.43743 16.0002 7.33557V3.6665M24.0002 16.9998L29.6973 12.2522C30.5438 11.5468 30.967 11.1941 31.2713 10.7618C31.5409 10.3787 31.7411 9.95122 31.8628 9.49888C32.0002 8.98835 32.0002 8.43743 32.0002 7.33557V3.6665M24.0002 16.9998L18.303 21.7475C17.4565 22.4529 17.0333 22.8056 16.729 23.2379C16.4594 23.621 16.2592 24.0484 16.1375 24.5008C16.0002 25.0113 16.0002 25.5622 16.0002 26.6641V30.3332M24.0002 16.9998L29.6973 21.7475C30.5438 22.4529 30.967 22.8056 31.2713 23.2379C31.5409 23.621 31.7411 24.0484 31.8628 24.5008C32.0002 25.0113 32.0002 25.5622 32.0002 26.6641V30.3332M13.3335 3.6665H34.6668M13.3335 30.3332H34.6668"
+        stroke="#79B5EC"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  ),
+  Cancelled: (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 20 20"
+      fill="#F37877"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g id="cross">
+        <path
+          id="icon"
+          d="M4.16669 4.1665L15.8334 15.8332M15.8334 4.1665L4.16669 15.8332"
+          stroke="#F37877"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+      </g>
+    </svg>
+  )
+}
+
+const info = [
+  {
+    id: 1,
+    name: "Phoenix Baker",
+    date: "Jan 4, 2022",
+    status: "Scheduled",
+    doctor: "Dr. Alex Ramirez",
+    docImg: alex,
+  },
+  {
+    id: 2,
+    name: "Candice Wu",
+    date: "Jan 2, 2022",
+    status: "Pending",
+    doctor: "Dr. Michael May",
+    docImg: michael,
+  },
+  {
+    id: 3,
+    name: "Lana Steiner",
+    date: "Jan 4, 2022",
+    status: "Cancelled",
+    doctor: "Dr. Jasmine Lee",
+    docImg: jasmine,
+  },
+  {
+    id: 4,
+    name: "Drew Cano",
+    date: "Jan 8, 2022",
+    status: "Scheduled",
+    doctor: "Dr. Hardik Sharma",
+    docImg: hardik,
+  },
+  {
+    id: 5,
+    name: "Natali Craig",
+    date: "Jan 6, 2022",
+    status: "Pending",
+    doctor: "Dr Alyana Cruz",
+    docImg: alyana,
+  },
+];
+
+const doctors = [
+  {
+    name: "Dr. Sarah Safari",
+    img: doc1,
+  },
+  {
+    name: "Dr. Ava Williams",
+    img: doc2,
+  },
+  {
+    name: "Dr. Adam Smith",
+    img: doc3,
+  },
+  {
+    name: "Dr. Alex Ramirez",
+    img: alex,
+  },
+  {
+    name: "Dr. Michael May",
+    img: michael,
+  },
+  {
+    name: "Dr. Jasmine Lee",
+    img: jasmine,
+  },
+  {
+    name: "Dr. Hardik Sharma",
+    img: hardik,
+  },
+  {
+    name: "Dr Alyana Cruz",
+    img: alyana,
+  },
+];
+
+const generateRandomColor = () => {
+  return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+};
+
+const createAbbv = (name) => {
+  return name
+    .split(" ")
+    .map((name) => name[0])
+    .join("");
+};
+
+
 const Dashboard = ({ handlePath }) => {
-  const doctors = [
-    {
-      name: "Dr. Sarah Safari",
-      img: doc1,
-    },
-    {
-      name: "Dr. Ava Williams",
-      img: doc2,
-    },
-    {
-      name: "Dr. Adam Smith",
-      img: doc3,
-    },
-    {
-      name: "Dr. Alex Ramirez",
-      img: alex,
-    },
-    {
-      name: "Dr. Michael May",
-      img: michael,
-    },
-    {
-      name: "Dr. Jasmine Lee",
-      img: jasmine,
-    },
-    {
-      name: "Dr. Hardik Sharma",
-      img: hardik,
-    },
-    {
-      name: "Dr Alyana Cruz",
-      img: alyana,
-    },
-  ];
-
-  const info = [
-    {
-      name: "Phoenix Baker",
-      date: "Jan 4, 2022",
-      status: "Scheduled",
-      statusIcon: (
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 12 13"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g id="check">
-            <path
-              id="icon"
-              d="M1.5 5.9L4.14546 8.72183C4.54054 9.14324 5.20946 9.14324 5.60454 8.72183L10.5 3.5"
-              stroke="#24ae7c"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-          </g>
-        </svg>
-      ),
-      doctor: "Dr. Alex Ramirez",
-      docImg: alex,
-    },
-    {
-      name: "Candice Wu",
-      date: "Jan 2, 2022",
-      status: "Pending",
-      statusIcon: (
-        <svg
-          className=""
-          width="12"
-          height="12"
-          viewBox="0 0 50 35"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            id="Icon"
-            d="M24.0002 16.9998L18.303 12.2522C17.4565 11.5468 17.0333 11.1941 16.729 10.7618C16.4594 10.3787 16.2592 9.95122 16.1375 9.49888C16.0002 8.98835 16.0002 8.43743 16.0002 7.33557V3.6665M24.0002 16.9998L29.6973 12.2522C30.5438 11.5468 30.967 11.1941 31.2713 10.7618C31.5409 10.3787 31.7411 9.95122 31.8628 9.49888C32.0002 8.98835 32.0002 8.43743 32.0002 7.33557V3.6665M24.0002 16.9998L18.303 21.7475C17.4565 22.4529 17.0333 22.8056 16.729 23.2379C16.4594 23.621 16.2592 24.0484 16.1375 24.5008C16.0002 25.0113 16.0002 25.5622 16.0002 26.6641V30.3332M24.0002 16.9998L29.6973 21.7475C30.5438 22.4529 30.967 22.8056 31.2713 23.2379C31.5409 23.621 31.7411 24.0484 31.8628 24.5008C32.0002 25.0113 32.0002 25.5622 32.0002 26.6641V30.3332M13.3335 3.6665H34.6668M13.3335 30.3332H34.6668"
-            stroke="#79B5EC"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      ),
-      doctor: "Dr. Michael May",
-      docImg: michael,
-    },
-    {
-      name: "Lana Steiner",
-      date: "Jan 4, 2022",
-      status: "Cancelled",
-      statusIcon: (
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 20 20"
-          fill="#F37877"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g id="cross">
-            <path
-              id="icon"
-              d="M4.16669 4.1665L15.8334 15.8332M15.8334 4.1665L4.16669 15.8332"
-              stroke="#F37877"
-              stroke-width="1.5"
-              stroke-linecap="round"
-            />
-          </g>
-        </svg>
-      ),
-      doctor: "Dr. Jasmine Lee",
-      docImg: jasmine,
-    },
-    {
-      name: "Drew Cano",
-      date: "Jan 8, 2022",
-      status: "Scheduled",
-      statusIcon: (
-        <svg
-          width="12"
-          height="12"
-          viewBox="0 0 12 13"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <g id="check">
-            <path
-              id="icon"
-              d="M1.5 5.9L4.14546 8.72183C4.54054 9.14324 5.20946 9.14324 5.60454 8.72183L10.5 3.5"
-              stroke="#24ae7c"
-              stroke-width="2"
-              stroke-linecap="round"
-            />
-          </g>
-        </svg>
-      ),
-      doctor: "Dr. Hardik Sharma",
-      docImg: hardik,
-    },
-    {
-      name: "Natali Craig",
-      date: "Jan 6, 2022",
-      status: "Pending",
-      statusIcon: (
-        <svg
-          className=""
-          width="12"
-          height="12"
-          viewBox="0 0 50 35"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            id="Icon"
-            d="M24.0002 16.9998L18.303 12.2522C17.4565 11.5468 17.0333 11.1941 16.729 10.7618C16.4594 10.3787 16.2592 9.95122 16.1375 9.49888C16.0002 8.98835 16.0002 8.43743 16.0002 7.33557V3.6665M24.0002 16.9998L29.6973 12.2522C30.5438 11.5468 30.967 11.1941 31.2713 10.7618C31.5409 10.3787 31.7411 9.95122 31.8628 9.49888C32.0002 8.98835 32.0002 8.43743 32.0002 7.33557V3.6665M24.0002 16.9998L18.303 21.7475C17.4565 22.4529 17.0333 22.8056 16.729 23.2379C16.4594 23.621 16.2592 24.0484 16.1375 24.5008C16.0002 25.0113 16.0002 25.5622 16.0002 26.6641V30.3332M24.0002 16.9998L29.6973 21.7475C30.5438 22.4529 30.967 22.8056 31.2713 23.2379C31.5409 23.621 31.7411 24.0484 31.8628 24.5008C32.0002 25.0113 32.0002 25.5622 32.0002 26.6641V30.3332M13.3335 3.6665H34.6668M13.3335 30.3332H34.6668"
-            stroke="#79B5EC"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      ),
-      doctor: "Dr Alyana Cruz",
-      docImg: alyana,
-    },
-  ];
-
   const [modalIsOpen, setModalIsOpen] = useState(true);
   const [cancelModalodalIsOpen, setCancelModalIsOpen] = useState(true);
   const [physician, setPhysician] = useState("Select your Physician");
@@ -191,9 +173,11 @@ const Dashboard = ({ handlePath }) => {
   const [appointmentReason, setAppointmentReason] = useState("");
   const [cancelReason, setCancelReason] = useState("");
   const [appointmentDateIncluded, setAppointmentDateIncluded] = useState(false);
-  const [allIncluded, setAllIncluded] = useState(false);
+  // const [allIncluded, setAllIncluded] = useState(false);
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
-  const [apptIsScheduled, setApptIsScheduled] = useState(false);
+  // const [apptIsScheduled, setApptIsScheduled] = useState(false);
+  const [patientList, setPatientList] = useState(info)
+  const [cancelId, setCancelId] = useState()
 
   function handleSelectPhysician(val, img) {
     setPhysician(val);
@@ -209,8 +193,8 @@ const Dashboard = ({ handlePath }) => {
     else setAppointmentDateIncluded(false);
     if (physician !== "Select your Physician" && appointmentDate) {
       setPhysicianIncluded(false);
-      setAllIncluded(true);
-      setApptIsScheduled(true);
+      // setAllIncluded(true);
+      // setApptIsScheduled(true);
       toggleScheduleModal();
     } else {
       setPhysicianIncluded(true);
@@ -218,19 +202,19 @@ const Dashboard = ({ handlePath }) => {
   }
 
   function handleCancelAppt() {
-    if (cancelReason.length > 5) toggleCancelModal();
+    const newPatientList = patientList.map((patient) => {
+      if (patient.id === cancelId) {
+        return { ...patient, status: "Cancelled" }
+      }
+      return patient
+    })
+
+    setPatientList(newPatientList)
+    setCancelReason('')
+    toggleCancelModal()
+
+    // if (cancelReason.length > 5) toggleCancelModal();
   }
-
-  const createAbbv = (name) => {
-    return name
-      .split(" ")
-      .map((name) => name[0])
-      .join("");
-  };
-
-  const generateRandomColor = () => {
-    return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-  };
 
   const toggleScheduleModal = () => {
     setModalIsOpen((prev) => !prev);
@@ -380,7 +364,7 @@ const Dashboard = ({ handlePath }) => {
               <span className="hidden lg:block">Actions</span>
             </div>
 
-            {info.map((patient, i) => (
+            {patientList.map((patient, i) => (
               <div
                 className={`text-[#e8e9e9] text-sm font-semibold grid grid-cols-4 lg:grid-cols-5 px-6 py-4 items-center ${
                   i % 2 !== 0 ? "bg-[#1c2023]" : ""
@@ -406,7 +390,7 @@ const Dashboard = ({ handlePath }) => {
                         : "text-[#f27776] bg-[#3e1716]"
                     }`}
                   >
-                    <div>{patient.statusIcon}</div>
+                    <div>{statuses[patient.status]}</div>
                     <span className="text-xs font-semibold">
                       {patient.status}
                     </span>
@@ -427,7 +411,8 @@ const Dashboard = ({ handlePath }) => {
                 </div>
                 <div className="lg:flex gap-[14px] hidden ">
                   <button
-                    className="text-[#24ae7c] hover:underline"
+                    className="text-[#24ae7c] hover:underline disabled:hover:no-underline"
+                    // disabled={['Cancelled'].includes(patient.status)}
                     onClick={(e) => {
                       e.preventDefault();
                       toggleScheduleModal();
@@ -436,9 +421,11 @@ const Dashboard = ({ handlePath }) => {
                     Schedule
                   </button>
                   <button
-                    className="text-[#fbecec] hover:underline"
+                    className="text-[#fbecec] hover:underline disabled:hover:no-underline"
+                    disabled={patient.status === "Cancelled"}
                     onClick={(e) => {
                       e.preventDefault();
+                      setCancelId(patient.id)
                       toggleCancelModal();
                     }}
                   >
@@ -693,7 +680,6 @@ const Dashboard = ({ handlePath }) => {
                 onClick={(e) => {
                   e.preventDefault();
                   handleAppointment();
-                  toggleScheduleModal();
                 }}
                 type="submit"
                 value="Schedule appointment"
@@ -778,7 +764,7 @@ const Dashboard = ({ handlePath }) => {
                   handleCancelAppt();
                 }}
                 type="submit"
-                value="Schedule appointment"
+                value="Cancel appointment"
                 className="bg-[#f14e42] px-6 py-3 text-white hover:bg-[#f14e30] min-w-20 mx-auto md:w-full mt-10 rounded-lg justify-center items-center text-base font-semibold leading-normal tracking-tight "
               />
             </form>
