@@ -593,7 +593,6 @@ const Dashboard = ({ handlePath }) => {
                             handleSelectPhysician(doctor.name, doctor.img);
                             handleDropdown();
                             setPhysicianIncluded(false);
-                            console.log(physician, physicianImg);
                           }}
                           className="p-3 hover:bg-gradient-to-br from-[#d7ecec] from-[-650%] hover:border border-white/10 justify-start items-center gap-4 inline-flex w-full 
                         "
